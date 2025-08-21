@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: rgb(227, 228, 227);
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 300px;
+      position: relative;
+    }
+    .container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #727272;
+      color: rgb(247, 246, 246);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .message {
+      margin-top: 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .success {
+      color: green;
+    }
+
+    /* Custom Popup */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #f4f4f4;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+      text-align: center;
+      min-width: 250px;
+    }
+    .popup button {
+      margin-top: 10px;
+      background: white;
+      color: #ecebeb;
+      padding: 5px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .popup button:hover {
+      background: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Sign Up</h2>
+    <form id="signupForm">
+      <input type="text" id="name" placeholder="Enter Name">
+      <input type="email" id="email" placeholder="Enter Email">
+      <input type="password" id="password" placeholder="Enter Password">
+      <button type="submit">Submit</button>
+    </form>
+    <div class="message" id="message"></div>
+  </div>
+
+  <div class="popup" id="popup">
+    <p id="popupMessage"></p>
+    <button onclick="closePopup()">OK</button>
+  </div>
+
+  <script>
+    function showPopup(msg) {
+      document.getElementById("popupMessage").innerText = msg;
+      document.getElementById("popup").style.display = "block";
+    }
+
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+    }
+
+    document.getElementById("signupForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      let name = document.getElementById("name").value.trim();
+      let email = document.getElementById("email").value.trim();
+      let password = document.getElementById("password").value.trim();
+      let message = document.getElementById("message");
+
+      let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,}$/;
+
+      if (name === "" || email === "" || password === "") {
+        showPopup("⚠️ All fields are required!");
+      } 
+      else if (!email.match(emailPattern)) {
+        showPopup("⚠️ Invalid email format! (e.g. name@example.com)");
+      } 
+      else {
+        message.innerHTML = "✅ Registration Successful!";
+        message.className = "message success";
+        document.getElementById("signupForm").reset();
+      }
+    });
+  </script>
+
+</body>
+</html>
